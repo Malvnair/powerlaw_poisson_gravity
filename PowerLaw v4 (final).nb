@@ -1,0 +1,409 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     13472,        399]
+NotebookOptionsPosition[     12699,        379]
+NotebookOutlinePosition[     13093,        395]
+CellTagsIndexPosition[     13050,        392]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"pOfN", "[", "nn_Integer", "]"}], ":=", 
+    RowBox[{"nn", "/", "2"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"r", "=", 
+     RowBox[{"integration", " ", "radius"}]}], ",", 
+    RowBox[{"R", "=", 
+     RowBox[{"field", "-", 
+      RowBox[{"point", " ", "radius"}]}]}]}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$ass", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"r", ">", "0"}], ",", 
+      RowBox[{"k", ">", "0"}], ",", 
+      RowBox[{"R", ">", "0"}], ",", 
+      RowBox[{"\[Sigma]c", ">", "0"}], ",", 
+      RowBox[{"G", ">", "0"}], ",", 
+      RowBox[{"0", "<", "p", "<", "2"}]}], "}"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Sigma]PL", "[", 
+     RowBox[{"r_", ",", "p_"}], "]"}], ":=", 
+    RowBox[{"\[Sigma]c", " ", 
+     RowBox[{"r", "^", 
+      RowBox[{"(", 
+       RowBox[{"-", "p"}], ")"}]}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"AheldPL", "[", "p_", "]"}], ":=", 
+    RowBox[{"HoldForm", "[", 
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "Pi", " ", "G", " ", 
+      RowBox[{"Integrate", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Sigma]PL", "[", 
+          RowBox[{"r", ",", "p"}], "]"}], " ", "r", " ", 
+         RowBox[{"BesselJ", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"k", " ", "r"}]}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"r", ",", "0", ",", "Infinity"}], "}"}], ",", 
+        RowBox[{"Assumptions", "->", "$ass"}], ",", 
+        RowBox[{"GenerateConditions", "->", "False"}]}], "]"}]}], "]"}]}], 
+   ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"grheldPL", "[", "p_", "]"}], ":=", 
+    RowBox[{"HoldForm", "[", 
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ReleaseHold", "[", 
+         RowBox[{"AheldPL", "[", "p", "]"}], "]"}], " ", "k", " ", 
+        RowBox[{"BesselJ", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"k", " ", "R"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "0", ",", "Infinity"}], "}"}], ",", 
+       RowBox[{"Assumptions", "->", "$ass"}], ",", 
+       RowBox[{"GenerateConditions", "->", "False"}]}], "]"}], "]"}]}], ";"}],
+   "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"casesA", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"nn", "->", 
+      RowBox[{"AheldPL", "[", 
+       RowBox[{"pOfN", "[", "nn", "]"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"nn", ",", "1", ",", "3"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"casesg", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"nn", "->", 
+       RowBox[{"grheldPL", "[", 
+        RowBox[{"pOfN", "[", "nn", "]"}], "]"}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{"nn", ",", "1", ",", "3"}], "}"}]}], "]"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", "casesA", "\n", 
+ RowBox[{"casesg", "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ClearAll", "[", 
+    RowBox[{"Aclosed", ",", "gclosed"}], "]"}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Aclosed", "[", "p_", "]"}], ":=", 
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"FullSimplify", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "2"}], " ", "Pi", " ", "G", " ", "\[Sigma]c", " ", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"2", "^", 
+             RowBox[{"(", 
+              RowBox[{"1", "-", "p"}], ")"}]}], " ", 
+            RowBox[{"Gamma", "[", 
+             RowBox[{"1", "-", 
+              RowBox[{"p", "/", "2"}]}], "]"}]}], ")"}], "/", 
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"Gamma", "[", 
+             RowBox[{"p", "/", "2"}], "]"}], " ", 
+            RowBox[{"k", "^", 
+             RowBox[{"(", 
+              RowBox[{"2", "-", "p"}], ")"}]}]}], ")"}]}]}], ",", 
+        RowBox[{"Assumptions", "->", "$ass"}]}], "]"}], ",", "10", 
+      ",", "\"\<no closed form\>\""}], "]"}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"gclosed", "[", "p_", "]"}], ":=", 
+    RowBox[{
+     RowBox[{"gclosed", "[", "p", "]"}], "=", 
+     RowBox[{"TimeConstrained", "[", 
+      RowBox[{
+       RowBox[{"FullSimplify", "[", 
+        RowBox[{
+         RowBox[{"Integrate", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Aclosed", "[", "p", "]"}], " ", "k", " ", 
+            RowBox[{"BesselJ", "[", 
+             RowBox[{"1", ",", 
+              RowBox[{"k", " ", "R"}]}], "]"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"k", ",", "0", ",", "Infinity"}], "}"}], ",", 
+           RowBox[{"Assumptions", "->", "$ass"}], ",", 
+           RowBox[{"GenerateConditions", "->", "False"}]}], "]"}], ",", 
+         RowBox[{"Assumptions", "->", "$ass"}]}], "]"}], ",", "10", 
+       ",", "\"\<no closed form\>\""}], "]"}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"nn", "->", 
+    RowBox[{"Aclosed", "[", 
+     RowBox[{"pOfN", "[", "nn", "]"}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"nn", ",", "1", ",", "3"}], "}"}]}], "]"}], "\n", 
+ RowBox[{"Table", "[", 
+  RowBox[{
+   RowBox[{"nn", "->", 
+    RowBox[{"gclosed", "[", 
+     RowBox[{"pOfN", "[", "nn", "]"}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"nn", ",", "1", ",", "3"}], "}"}]}], "]"}]}], "Input",
+ CellChangeTimes->{{3.9818215713221083`*^9, 3.981821571323432*^9}},
+ CellLabel->"In[96]:=",ExpressionUUID->"66bcfbff-c5af-4049-a775-b62038680a8d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"1", "\[Rule]", 
+    TagBox[
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "\[Pi]", " ", "G", " ", 
+      RowBox[{"Integrate", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Sigma]PL", "[", 
+          RowBox[{"r", ",", 
+           FractionBox["1", "2"]}], "]"}], " ", "r", " ", 
+         RowBox[{"BesselJ", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"k", " ", "r"}]}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"r", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+        RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+        RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}]}],
+     HoldForm]}], ",", 
+   RowBox[{"2", "\[Rule]", 
+    TagBox[
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "\[Pi]", " ", "G", " ", 
+      RowBox[{"Integrate", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Sigma]PL", "[", 
+          RowBox[{"r", ",", "1"}], "]"}], " ", "r", " ", 
+         RowBox[{"BesselJ", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"k", " ", "r"}]}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"r", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+        RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+        RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}]}],
+     HoldForm]}], ",", 
+   RowBox[{"3", "\[Rule]", 
+    TagBox[
+     RowBox[{
+      RowBox[{"-", "2"}], " ", "\[Pi]", " ", "G", " ", 
+      RowBox[{"Integrate", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Sigma]PL", "[", 
+          RowBox[{"r", ",", 
+           FractionBox["3", "2"]}], "]"}], " ", "r", " ", 
+         RowBox[{"BesselJ", "[", 
+          RowBox[{"0", ",", 
+           RowBox[{"k", " ", "r"}]}], "]"}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"r", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+        RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+        RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}]}],
+     HoldForm]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.981821572272881*^9},
+ CellLabel->
+  "Out[104]=",ExpressionUUID->"a7c7b0c2-342f-4cbd-b359-60691988b5d4"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"1", "\[Rule]", 
+    TagBox[
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ReleaseHold", "[", 
+         RowBox[{"AheldPL", "[", 
+          FractionBox["1", "2"], "]"}], "]"}], " ", "k", " ", 
+        RowBox[{"BesselJ", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"k", " ", "R"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+       RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+       RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}],
+     HoldForm]}], ",", 
+   RowBox[{"2", "\[Rule]", 
+    TagBox[
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ReleaseHold", "[", 
+         RowBox[{"AheldPL", "[", "1", "]"}], "]"}], " ", "k", " ", 
+        RowBox[{"BesselJ", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"k", " ", "R"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+       RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+       RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}],
+     HoldForm]}], ",", 
+   RowBox[{"3", "\[Rule]", 
+    TagBox[
+     RowBox[{"Integrate", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ReleaseHold", "[", 
+         RowBox[{"AheldPL", "[", 
+          FractionBox["3", "2"], "]"}], "]"}], " ", "k", " ", 
+        RowBox[{"BesselJ", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"k", " ", "R"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", "0", ",", "\[Infinity]"}], "}"}], ",", 
+       RowBox[{"Assumptions", "\[Rule]", "$ass"}], ",", 
+       RowBox[{"GenerateConditions", "\[Rule]", "False"}]}], "]"}],
+     HoldForm]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.981821572274431*^9},
+ CellLabel->
+  "Out[105]=",ExpressionUUID->"d35a61de-7d45-4f81-99dc-9e0a2d2f35d7"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"1", "\[Rule]", 
+    FractionBox[
+     RowBox[{"G", " ", "\[Pi]", " ", "\[Sigma]c", " ", 
+      RowBox[{"Gamma", "[", 
+       RowBox[{"-", 
+        FractionBox["1", "4"]}], "]"}]}], 
+     RowBox[{
+      SqrtBox["2"], " ", 
+      SuperscriptBox["k", 
+       RowBox[{"3", "/", "2"}]], " ", 
+      RowBox[{"Gamma", "[", 
+       FractionBox["1", "4"], "]"}]}]]}], ",", 
+   RowBox[{"2", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"2", " ", "G", " ", "\[Pi]", " ", "\[Sigma]c"}], "k"]}]}], ",", 
+   
+   RowBox[{"3", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{
+       SqrtBox["2"], " ", "G", " ", "\[Pi]", " ", "\[Sigma]c", " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["1", "4"], "]"}]}], 
+      RowBox[{
+       SqrtBox["k"], " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["3", "4"], "]"}]}]]}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.981821572303857*^9},
+ CellLabel->
+  "Out[109]=",ExpressionUUID->"2905197d-dfd8-4754-8c38-d8e47bc133cf"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"1", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"2", " ", "G", " ", "\[Pi]", " ", "\[Sigma]c", " ", 
+       SuperscriptBox[
+        RowBox[{"Gamma", "[", 
+         FractionBox["3", "4"], "]"}], "2"]}], 
+      RowBox[{
+       SqrtBox["R"], " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["1", "4"], "]"}], " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["5", "4"], "]"}]}]]}]}], ",", 
+   RowBox[{"2", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"2", " ", "G", " ", "\[Pi]", " ", "\[Sigma]c"}], "R"]}]}], ",", 
+   
+   RowBox[{"3", "\[Rule]", 
+    RowBox[{"-", 
+     FractionBox[
+      RowBox[{"2", " ", "G", " ", "\[Pi]", " ", "\[Sigma]c", " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["1", "4"], "]"}], " ", 
+       RowBox[{"Gamma", "[", 
+        FractionBox["5", "4"], "]"}]}], 
+      RowBox[{
+       SuperscriptBox["R", 
+        RowBox[{"3", "/", "2"}]], " ", 
+       SuperscriptBox[
+        RowBox[{"Gamma", "[", 
+         FractionBox["3", "4"], "]"}], "2"]}]]}]}]}], "}"}]], "Output",
+ CellChangeTimes->{3.981821572460205*^9},
+ CellLabel->
+  "Out[110]=",ExpressionUUID->"0fe1c6ec-c330-429c-813c-fa88a1cf1dd4"]
+}, Open  ]]
+},
+WindowSize->{808, 768},
+WindowMargins->{{Automatic, -4}, {Automatic, 30}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (March 16, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"97ba1ced-d4fc-44de-971c-dddd3bbc2303"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 5793, 166, 785, "Input",ExpressionUUID->"66bcfbff-c5af-4049-a775-b62038680a8d"],
+Cell[6372, 190, 2125, 58, 179, "Output",ExpressionUUID->"a7c7b0c2-342f-4cbd-b359-60691988b5d4"],
+Cell[8500, 250, 1907, 52, 179, "Output",ExpressionUUID->"d35a61de-7d45-4f81-99dc-9e0a2d2f35d7"],
+Cell[10410, 304, 1044, 33, 64, "Output",ExpressionUUID->"2905197d-dfd8-4754-8c38-d8e47bc133cf"],
+Cell[11457, 339, 1226, 37, 63, "Output",ExpressionUUID->"0fe1c6ec-c330-429c-813c-fa88a1cf1dd4"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
